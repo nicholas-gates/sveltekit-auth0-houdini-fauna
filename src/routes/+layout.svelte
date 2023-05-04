@@ -2,7 +2,7 @@
 <script>
   import { onMount } from "svelte";
   import auth from "../authService";
-  import { isAuthenticated, user, user_tasks, tasks } from "../store";
+  import { isAuthenticated, user } from "../store";
   // import TaskItem from "./components/TaskItem.svelte";
 
   let auth0Client;
