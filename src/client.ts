@@ -4,10 +4,10 @@ import { PUBLIC_FAUNADB_KEY } from '$env/static/public';
 export default new HoudiniClient({
 	url: 'https://graphql.us.fauna.com/graphql',
 	fetchParams({ session }) {
-		console.log(`FAUNADB_KEY`, PUBLIC_FAUNADB_KEY);
+		// console.log(`FAUNADB_KEY`, PUBLIC_FAUNADB_KEY);
 		return {
 			headers: {
-				Authorization: `Bearer PUBLIC_FAUNADB_KEY-`
+				Authorization: `Bearer ${PUBLIC_FAUNADB_KEY}`
 			}
 		};
 	}

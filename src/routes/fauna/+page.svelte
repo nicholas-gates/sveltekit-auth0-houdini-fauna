@@ -17,17 +17,17 @@
 {:else}
     <div>
         <h2>Readings by Time Range</h2>
-    <!-- { JSON.stringify($DhtReadingsByTimeRange)} -->
-    {#each $DhtReadingsByTimeRange.data.getDhtReadingsByTimeRange as reading}
-      <section>
-          <ul>
-                <li>Temp (F): {reading?.tempFahr}</li>
-                <li>Temp (C): {reading?.tempCel}</li>
-                <li>Humidity: {reading?.humidity}</li>
-                <li>Created At: {reading?.createdAt}</li>
-          </ul>
-      </section>
-    {/each}
+        { JSON.stringify($DhtReadingsByTimeRange)}
+        {#each $DhtReadingsByTimeRange.data.getDhtReadingsByTimeRange as reading}
+        <section>
+            <ul>
+                    <li>Temp (F): {reading?.tempFahr}</li>
+                    <li>Temp (C): {reading?.tempCel}</li>
+                    <li>Humidity: {reading?.humidity}</li>
+                    <li>Created At: {reading?.createdAt}</li>
+            </ul>
+        </section>
+        {/each}
     </div>
 {/if}
 
