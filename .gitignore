@@ -11,3 +11,5 @@ vite.config.ts.timestamp-*
 
 $houdini
 *.old
+
+auth_config*
