@@ -1,24 +1,27 @@
 import { HoudiniClient } from '$houdini';
-import { PUBLIC_FAUNADB_KEY } from '$env/static/public';
+
+console.log(`⭐️⭐️⭐️ creating HoudiniClient`);
 
 export default new HoudiniClient({
 	url: 'https://graphql.us.fauna.com/graphql',
 	fetchParams({ session }) {
-		// console.log(`FAUNADB_KEY`, PUBLIC_FAUNADB_KEY);
+		let token;
+		if (typeof window !== 'undefined') {
+
+			token = document.cookie
+				.split('; ')
+				.find((row) => row.startsWith('fdbtoken='))
+				?.split('=')[1];
+
+			// console.log(`⭐️⭐️⭐️ houdfdbtoken: ${JSON.stringify(token)}`);
+		} else {
+			throw new Error('No token cookie found');
+		}
+
 		return {
 			headers: {
-				Authorization: `Bearer ${PUBLIC_FAUNADB_KEY}`
+				Authorization: `Bearer ${token}`
 			}
 		};
 	}
-
-	// uncomment this to configure the network call (for things like authentication)
-	// for more information, please visit here: https://www.houdinigraphql.com/guides/authentication
-	// fetchParams({ session }) {
-	//     return {
-	//         headers: {
-	//             Authentication: `Bearer ${session.token}`,
-	//         }
-	//     }
-	// }
 });

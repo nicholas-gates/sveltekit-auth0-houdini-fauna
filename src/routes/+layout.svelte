@@ -1,60 +1,25 @@
 
 <script>
-  import { onMount } from "svelte";
   import auth from "../authService";
-  import { isAuthenticated, user } from "../store";
-  // import TaskItem from "./components/TaskItem.svelte";
 
-  let auth0Client;
-  let newTask;
+	export let data;
 
-  onMount(async () => {
-    auth0Client = await auth.createClient();
-
-    isAuthenticated.set(await auth0Client.isAuthenticated());
-    user.set(await auth0Client.getUser());
-  });
+  const {auth0Client, isAuthenticated, user} = data;
 
   function login() {
-    auth.loginWithPopup(auth0Client);
+    auth.loginWithPopup(auth0Client, {
+      authorizationParams: {
+        audience: "https://db.fauna.com/db/yu6n7xsjsyrfc",
+        scope: "openid profile email"
+      }
+    });
   }
 
   function logout() {
     auth.logout(auth0Client);
   }
 
-  // function addItem() {
-  //   let newTaskObject = {
-  //     id: genRandom(),
-  //     description: newTask,
-  //     completed: false,
-  //     user: $user.email
-  //   };
-
-  //   console.log(newTaskObject);
-
-  //   let updatedTasks = [...$tasks, newTaskObject];
-
-  //   tasks.set(updatedTasks);
-
-  //   newTask = "";
-  // }
-
-  // function genRandom(length = 7) {
-  //   var chars =
-  //     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  //   var result = "";
-  //   for (var i = length; i > 0; --i)
-  //     result += chars[Math.round(Math.random() * (chars.length - 1))];
-  //   return result;
-  // }
 </script>
-
-<!-- <style>
-  #main-application {
-    margin-top: 50px;
-  }
-</style> -->
 
 <main>
   <!-- App Bar -->
