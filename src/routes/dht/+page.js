@@ -23,12 +23,24 @@ export const _houdini_load = graphql(`
 // Query variable functions must be named _<QueryName>Variables.
 /* @type { import('./$houdini').AllItemsVariables } */
 export const _DhtReadingsByTimeRangeVariables = (event) => {
-    console.log('⭐️⭐️⭐️ event', Object.keys(event.params))
+    console.log('⭐️⭐️⭐️ s', event.url.searchParams.get('s'))
+    console.log('⭐️⭐️⭐️ e', event.url.searchParams.get('e'))
+
+    const startTs = event.url.searchParams.get('s')
+    const endTs = event.url.searchParams.get('e')
+
+    // Iterating the search parameters
+    // for (const p of event.url.searchParams) {
+    //     console.log(p);
+    // }
 
     // make sure we recognize the value
-    if (!event.params?.startTs || !event.params?.endTs) {
-        throw error(400, 'invalid filter')
-    }
+    // if (!event.params?.startTs || !event.params?.endTs) {
+    //     throw error(400, 'invalid filter')
+    // }
 
-    return event.params
+    return {
+        startTs,
+        endTs
+    }
 }

@@ -11,7 +11,7 @@
           </ul>
           <a
             class="btn btn-primary btn-lg mr-auto ml-auto"
-            href="/dht"
+            href="/dht?s=2022-03-19T00:01:24.697092Z&e=2023-06-30T00:01:24.697092Z"
             role="button"
             >DHT Readings</a
           >

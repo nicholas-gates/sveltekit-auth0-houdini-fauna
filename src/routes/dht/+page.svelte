@@ -4,7 +4,7 @@
 	/* @type { import('./$houdini').PageData } */
 	export let data;
 
-	const {isAuthenticated, user} = data;
+	const { isAuthenticated, user } = data;
 
 	$: ({ DhtReadingsByTimeRange } = data);
 
@@ -16,7 +16,7 @@
 </script>
 
 <div>
-	{debug($user, 'user: ')}
+	<!-- {debug($user, 'user: ')} -->
 
 	{#if !$isAuthenticated}
 		<div>
@@ -26,6 +26,14 @@
 		<div>Loading...</div>
 	{:else if $DhtReadingsByTimeRange.data?.getDhtReadingsByTimeRange}
 		<div>
+			<form action="/dht">
+				<label for="start-time">Start Time:</label>
+				<input type="text" id="start-time" name="s" value="2021-03-19T00:01:24.697092Z"/><br /><br />
+				<label for="end-time">End Time:</label>
+				<input type="text" id="end-time" name="e" value="2023-06-19T00:01:24.697092Z"/><br /><br />
+				  <button type="submit">Submit</button>
+			</form>
+
 			<h2>Readings by Time Range</h2>
 			{debug($DhtReadingsByTimeRange, '$DhtReadingsByTimeRange: ')}
 			{#each $DhtReadingsByTimeRange.data.getDhtReadingsByTimeRange as reading}
