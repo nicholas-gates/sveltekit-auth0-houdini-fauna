@@ -5,7 +5,7 @@ import { isAuthenticated, user } from "../store";
 export async function load() {
 
     if (typeof window !== 'undefined') {
-        console.log(`⭐️⭐️⭐️ setting user and auth0Client`);
+        // console.log(`⭐️⭐️⭐️ setting user and auth0Client`);
 
         const auth0Client = await auth.createClient();
 
