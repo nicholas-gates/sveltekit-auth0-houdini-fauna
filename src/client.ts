@@ -1,6 +1,6 @@
 import { HoudiniClient } from '$houdini';
 
-console.log(`⭐️⭐️⭐️ creating HoudiniClient`);
+// console.log(`⭐️⭐️⭐️ creating HoudiniClient`);
 
 export default new HoudiniClient({
 	url: 'https://graphql.us.fauna.com/graphql',

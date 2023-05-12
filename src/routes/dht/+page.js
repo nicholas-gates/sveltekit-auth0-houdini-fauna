@@ -3,6 +3,9 @@ export const ssr = false;
 import { graphql } from '$houdini'
 import { error } from '@sveltejs/kit'
 
+import { isAuthenticated, user } from "../../store";
+
+
 export const _houdini_load = graphql(`
     query DhtReadingsByTimeRange($startTs: String!, $endTs: String!) {
         getDhtReadingsByTimeRange(
@@ -45,6 +48,8 @@ export const _houdini_afterLoad = ({ event, data }) => {
 
     // add the search params to the data
     return {
+        user,
+        isAuthenticated,
         urlSearchParams: {
             ...getSearchParams(event),
         },

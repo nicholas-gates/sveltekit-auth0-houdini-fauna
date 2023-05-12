@@ -7,14 +7,11 @@ export async function load({ params }) {
     if (typeof window !== 'undefined') {
         const auth0Client = await auth.createClient();
 
-        // console.log(`⭐️⭐️⭐️ layout data`, {
-        //     auth0Client,
-        //     ...await auth.setUserDetails(auth0Client)
-        // });
+        auth.setUserDetails(auth0Client);
+
 
         return {
-            auth0Client,
-            ...await auth.setUserDetails(auth0Client)
+            auth0Client, // make the client available to the app
         };
     }
 

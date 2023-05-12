@@ -15,7 +15,7 @@ async function createClient() {
 
 async function loginWithPopup(authClient: Auth0Client, options: PopupLoginOptions) {
 	popupOpen.set(true);
-	console.log(`options: ${JSON.stringify(options)}`);
+	// console.log(`options: ${JSON.stringify(options)}`);
 
 	try {
 		await authClient.loginWithPopup(options);
@@ -62,10 +62,10 @@ const setUserDetails = async (authClient: Auth0Client) => {
 	user.set(authuser);
 	isAuthenticated.set(true);
 
-	// console.log(`⭐️⭐️⭐️ setUserDetails`, {
-	// 	user,
-	// 	isAuthenticated
-	// });
+	console.log(`⭐️⭐️⭐️ setUserDetails`, {
+		user,
+		isAuthenticated
+	});
 
 	return {
 		user,
