@@ -40,7 +40,7 @@ export const _DhtReadingsByTimeRangeVariables = (event) => {
  */
 export const _houdini_afterLoad = ({ event, data }) => {
     if (!data.DhtReadingsByTimeRange) {
-        throw error(404)
+        throw error(404, "Missing data.DhtReadingsByTimeRange")
     }
 
     // add the search params to the data

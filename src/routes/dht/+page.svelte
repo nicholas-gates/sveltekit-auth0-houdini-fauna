@@ -4,7 +4,7 @@
 	/* @type { import('./$houdini').PageData } */
 	export let data;
 
-	console.log('⭐️⭐️⭐️ data', data);
+	console.log('⭐️⭐️⭐️ dht page data', data);
 	const { isAuthenticated } = data;
 
 	$: ({ DhtReadingsByTimeRange, urlSearchParams: {startTs, endTs} } = data);
