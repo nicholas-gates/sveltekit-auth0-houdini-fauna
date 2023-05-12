@@ -23,24 +23,42 @@ export const _houdini_load = graphql(`
 // Query variable functions must be named _<QueryName>Variables.
 /* @type { import('./$houdini').AllItemsVariables } */
 export const _DhtReadingsByTimeRangeVariables = (event) => {
-    console.log('⭐️⭐️⭐️ s', event.url.searchParams.get('s'))
-    console.log('⭐️⭐️⭐️ e', event.url.searchParams.get('e'))
 
-    const startTs = event.url.searchParams.get('s')
-    const endTs = event.url.searchParams.get('e')
+    const startTs = event.url.searchParams.get('s') ?? '2021-03-19T00:01:24.697092Z'
+    const endTs = event.url.searchParams.get('e') ?? '2023-06-19T00:01:24.697092Z'
 
-    // Iterating the search parameters
-    // for (const p of event.url.searchParams) {
-    //     console.log(p);
-    // }
-
-    // make sure we recognize the value
-    // if (!event.params?.startTs || !event.params?.endTs) {
-    //     throw error(400, 'invalid filter')
-    // }
-
+    // console.log({
+    //     ...getSearchParams(event)
+    // })
     return {
-        startTs,
-        endTs
+        ...getSearchParams(event)
+    }
+}
+
+/**
+ * @param { import('./$houdini').AfterLoadEvent }
+ */
+export const _houdini_afterLoad = ({ event, data }) => {
+    if (!data.DhtReadingsByTimeRange) {
+        throw error(404)
+    }
+
+    // add the search params to the data
+    return {
+        urlSearchParams: {
+            ...getSearchParams(event),
+        },
+    }
+}
+
+/**
+ *
+ * @param {*} event
+ * @returns @type { startTs: string, endTs: string} object with startTs and endTs
+ */
+const getSearchParams = (event) => {
+    return {
+        startTs: event.url.searchParams.get('startTs') ?? '2021-03-19T00:01:24.697092Z',
+        endTs: event.url.searchParams.get('endTs') ?? '2023-06-19T00:01:24.697092Z'
     }
 }

@@ -4,15 +4,17 @@
 	/* @type { import('./$houdini').PageData } */
 	export let data;
 
-	const { isAuthenticated, user } = data;
+	console.log('⭐️⭐️⭐️ data', data);
+	const { isAuthenticated } = data;
 
-	$: ({ DhtReadingsByTimeRange } = data);
+	$: ({ DhtReadingsByTimeRange, urlSearchParams: {startTs, endTs} } = data);
 
 	// console.log(data.DhtReadingsByTimeRange)
 
 	const debug = (obj, name = '') => {
 		return PUBLIC_SHOW_JSON_DEBUG == '1' ? `${name} ${JSON.stringify(obj, null, 2)}` : '';
 	};
+
 </script>
 
 <div>
@@ -22,15 +24,15 @@
 		<div>
 			<h1>Not Authenticated</h1>
 		</div>
-	{:else if $DhtReadingsByTimeRange.fetching}
+	{:else if $DhtReadingsByTimeRange?.fetching}
 		<div>Loading...</div>
-	{:else if $DhtReadingsByTimeRange.data?.getDhtReadingsByTimeRange}
+	{:else if $DhtReadingsByTimeRange?.data?.getDhtReadingsByTimeRange}
 		<div>
 			<form action="/dht">
 				<label for="start-time">Start Time:</label>
-				<input type="text" id="start-time" name="s" value="2021-03-19T00:01:24.697092Z"/><br /><br />
+				<input type="text" id="start-time" name="startTs" value="{startTs}"/><br /><br />
 				<label for="end-time">End Time:</label>
-				<input type="text" id="end-time" name="e" value="2023-06-19T00:01:24.697092Z"/><br /><br />
+				<input type="text" id="end-time" name="endTs" value="{endTs}"/><br /><br />
 				  <button type="submit">Submit</button>
 			</form>
 
