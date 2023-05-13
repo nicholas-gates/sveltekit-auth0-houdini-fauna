@@ -10,7 +10,9 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
+			$home: './src',
 			$houdini: './$houdini',
+			$types: './src/types',
 		}
 	}
 };

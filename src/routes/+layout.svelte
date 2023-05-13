@@ -1,9 +1,18 @@
-<script>
-	import auth from '../authService';
+<script lang="ts">
+	// import type { Auth0Client, User } from '@auth0/auth0-spa-js';
+	import auth from '$home/authService';
+	// import type { Writable } from 'houdini/build/runtime/lib';
+	import type {Data} from '$types/Data';
 
-	export let data;
+	export let data: Data;
 
-	const { auth0Client, isAuthenticated, user } = data;
+	// interface Data {
+	// 	auth0Client: Auth0Client;
+	// 	isAuthenticated: Writable<boolean>;
+	// 	user: Writable<User>;
+	// }
+
+	const { auth0Client, isAuthenticated, user }: Data = data;
 
 	function login() {
 		if (auth0Client) {
