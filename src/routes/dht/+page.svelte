@@ -1,33 +1,23 @@
 <script lang="ts">
 	import { PUBLIC_SHOW_JSON_DEBUG } from '$env/static/public';
-	import type { Writable } from '$houdini';
+	import type { DhtReadingsByTimeRangeStore } from '$houdini';
+	import type { Writable } from 'svelte/store';
 
 	/* @type { import('./$houdini').PageData } */
 	export let data: Data;
+``
+	let DhtReadingsByTimeRange: DhtReadingsByTimeRangeStore, startTs: string, endTs: string, isAuthenticated: Writable<boolean>;
 
-	let DhtReadingsByTimeRange: Writable<DhtReadingsByTimeRangeInterface>, startTs: string, endTs: string, isAuthenticated: Writable<boolean>;
-
-	console.log('⭐️⭐️⭐️ dht page data', data);
-
-	interface DhtReadingsByTimeRangeInterface {
-		fetching: boolean;
-		data: {
-			getDhtReadingsByTimeRange: {
-				tempFahr: number;
-				tempCel: number;
-				humidity: number;
-				createdAt: string;
-			}[];
-		};
-	}
+	// console.log('⭐️⭐️⭐️ dht page data', data);
 
 	interface Data {
-		DhtReadingsByTimeRange: Writable<DhtReadingsByTimeRangeInterface>;
+		DhtReadingsByTimeRange: DhtReadingsByTimeRangeStore;
+		// DhtReadingsByTimeRange: Writable<DhtReadingsByTimeRangeInterface>;
+		isAuthenticated: Writable<boolean>;
 		urlSearchParams: {
 			startTs: string;
 			endTs: string;
 		};
-		isAuthenticated: Writable<boolean>;
 	}
 
 	$: ({ DhtReadingsByTimeRange, urlSearchParams: {startTs, endTs}, isAuthenticated } = data);

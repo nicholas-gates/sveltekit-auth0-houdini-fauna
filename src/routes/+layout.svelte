@@ -1,10 +1,16 @@
 <script lang="ts">
-	// import type { Auth0Client, User } from '@auth0/auth0-spa-js';
+	import type { User } from '$types/User';
+
 	import auth from '$home/authService';
-	// import type { Writable } from 'houdini/build/runtime/lib';
+	import type { Writable } from '$houdini';
 	import type {Data} from '$types/Data';
 
-	import { user, isAuthenticated  } from '../store';
+	// interface PageStores {
+	// 	user: Writable<User | null>;
+	// 	isAuthenticated: Writable<boolean>;
+	// }
+
+	import { user, isAuthenticated  } from '$home/store';
 
 	export let data: Data;
 	// console.log(`⭐️⭐️⭐️ layout data `, data);
