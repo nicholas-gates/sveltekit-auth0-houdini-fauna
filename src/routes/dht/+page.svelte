@@ -1,17 +1,40 @@
-<script>
+<script lang="ts">
 	import { PUBLIC_SHOW_JSON_DEBUG } from '$env/static/public';
+	import type { Writable } from '$houdini';
 
 	/* @type { import('./$houdini').PageData } */
-	export let data;
+	export let data: Data;
+
+	let DhtReadingsByTimeRange: Writable<DhtReadingsByTimeRangeInterface>, startTs: string, endTs: string, isAuthenticated: Writable<boolean>;
 
 	console.log('⭐️⭐️⭐️ dht page data', data);
-	const { isAuthenticated } = data;
 
-	$: ({ DhtReadingsByTimeRange, urlSearchParams: {startTs, endTs} } = data);
+	interface DhtReadingsByTimeRangeInterface {
+		fetching: boolean;
+		data: {
+			getDhtReadingsByTimeRange: {
+				tempFahr: number;
+				tempCel: number;
+				humidity: number;
+				createdAt: string;
+			}[];
+		};
+	}
+
+	interface Data {
+		DhtReadingsByTimeRange: Writable<DhtReadingsByTimeRangeInterface>;
+		urlSearchParams: {
+			startTs: string;
+			endTs: string;
+		};
+		isAuthenticated: Writable<boolean>;
+	}
+
+	$: ({ DhtReadingsByTimeRange, urlSearchParams: {startTs, endTs}, isAuthenticated } = data);
 
 	// console.log(data.DhtReadingsByTimeRange)
 
-	const debug = (obj, name = '') => {
+	const debug = (obj: any, name = '') => {
 		return PUBLIC_SHOW_JSON_DEBUG == '1' ? `${name} ${JSON.stringify(obj, null, 2)}` : '';
 	};
 
@@ -30,10 +53,10 @@
 		<div>
 			<form action="/dht">
 				<label for="start-time">Start Time:</label>
-				<input type="text" id="start-time" name="startTs" value="{startTs}"/><br /><br />
+				<input type="text" id="start-time" name="startTs" value={startTs} /><br /><br />
 				<label for="end-time">End Time:</label>
-				<input type="text" id="end-time" name="endTs" value="{endTs}"/><br /><br />
-				  <button type="submit">Submit</button>
+				<input type="text" id="end-time" name="endTs" value={endTs} /><br /><br />
+				<button type="submit">Submit</button>
 			</form>
 
 			<h2>Readings by Time Range</h2>

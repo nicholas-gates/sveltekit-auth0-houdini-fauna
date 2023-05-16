@@ -4,15 +4,14 @@
 	// import type { Writable } from 'houdini/build/runtime/lib';
 	import type {Data} from '$types/Data';
 
+	import { user, isAuthenticated  } from '../store';
+
 	export let data: Data;
+	// console.log(`⭐️⭐️⭐️ layout data `, data);
+	// console.log(`⭐️⭐️⭐️ layout user `, user);
+	// console.log(`⭐️⭐️⭐️ layout isAuthenticated `, isAuthenticated);
 
-	// interface Data {
-	// 	auth0Client: Auth0Client;
-	// 	isAuthenticated: Writable<boolean>;
-	// 	user: Writable<User>;
-	// }
-
-	const { auth0Client, isAuthenticated, user }: Data = data;
+	const { auth0Client }: Data = data;
 
 	function login() {
 		if (auth0Client) {

@@ -9,7 +9,6 @@ export async function load({ params }) {
 
         auth.setUserDetails(auth0Client);
 
-
         return {
             auth0Client, // make the client available to the app
         };

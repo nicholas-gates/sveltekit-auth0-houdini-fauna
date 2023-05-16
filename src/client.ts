@@ -4,24 +4,20 @@ import { HoudiniClient } from '$houdini';
 
 export default new HoudiniClient({
 	url: 'https://graphql.us.fauna.com/graphql',
-	fetchParams({ session }) {
+	fetchParams() {
 		let token;
 		if (typeof window !== 'undefined') {
-
-			token = document.cookie
-				.split('; ')
-				.find((row) => row.startsWith('fdbtoken='))
-				?.split('=')[1];
-
-			// console.log(`⭐️⭐️⭐️ houdfdbtoken: ${JSON.stringify(token)}`);
-		} else {
-			throw new Error('No token cookie found');
-		}
-
-		return {
-			headers: {
-				Authorization: `Bearer ${token}`
+			const token = localStorage.getItem('fdbtoken');
+			// console.log(`⭐️⭐️⭐️ token: `, token);
+			if (!token) {
+				throw new Error('No token found');
 			}
-		};
+			return {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				}
+			};
+		}
+		return {};
 	}
 });

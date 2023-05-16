@@ -21,7 +21,6 @@ async function loginWithPopup(authClient: Auth0Client, options: PopupLoginOption
 		await authClient.loginWithPopup(options);
 
 		setUserDetails(authClient);
-
 	} catch (e) {
 		// eslint-disable-next-line
 		console.error(e);
@@ -31,20 +30,22 @@ async function loginWithPopup(authClient: Auth0Client, options: PopupLoginOption
 }
 
 function logout(authClient: Auth0Client) {
-	document.cookie = `fdbtoken=; Secure`;
+	// document.cookie = `fdbtoken=; Secure`;
+	localStorage.removeItem('fdbtoken');
 	return authClient.logout();
 }
 
 const setUserDetails = async (authClient: Auth0Client) => {
-	const authuser = (await authClient.getUser());
-	// console.log(`⭐️⭐️⭐️ authuser: ${JSON.stringify(authuser)}`);
+	const authuser = await authClient.getUser();
+	console.log(`⭐️⭐️⭐️ authuser: ${JSON.stringify(authuser)}`);
 
 	if (!authuser) {
-		// console.log(`⭐️⭐️⭐️ !authuser`);
-		return {
-			user: user.set({}),
-			isAuthenticated: isAuthenticated.set(false)
-		}
+		console.log(`⭐️⭐️⭐️ !authuser`);
+
+		user.set({});
+		isAuthenticated.set(false);
+
+		return;
 	}
 
 	const differentAudienceOptions = {
@@ -55,8 +56,8 @@ const setUserDetails = async (authClient: Auth0Client) => {
 
 	const faunaToken = await authClient.getTokenSilently(differentAudienceOptions);
 
-	document.cookie = `fdbtoken=${faunaToken}; Secure`;
-
+	// document.cookie = `fdbtoken=${faunaToken}; Secure`;
+	localStorage.setItem('fdbtoken', faunaToken);
 	authuser.faunaToken = faunaToken;
 
 	user.set(authuser);
@@ -66,11 +67,6 @@ const setUserDetails = async (authClient: Auth0Client) => {
 		user,
 		isAuthenticated
 	});
-
-	return {
-		user,
-		isAuthenticated
-	};
 };
 
 const auth = {
