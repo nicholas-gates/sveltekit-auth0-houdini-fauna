@@ -50,9 +50,9 @@ export const _houdini_afterLoad = (
 	}: HoudiniAfterLoadEvent
 ) =>
 	{
-		if (!DhtReadingsByTimeRange) {
-			throw error(404, 'Missing DhtReadingsByTimeRange');
-		}
+		// if (!DhtReadingsByTimeRange) {
+		// 	throw error(404, 'Missing DhtReadingsByTimeRange');
+		// }
 
 		// add the search params to the data
 		return {

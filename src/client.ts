@@ -9,9 +9,10 @@ export default new HoudiniClient({
 		if (typeof window !== 'undefined') {
 			const token = localStorage.getItem('fdbtoken');
 			// console.log(`⭐️⭐️⭐️ token: `, token);
-			if (!token) {
-				throw new Error('No token found');
-			}
+			// if (!token) {
+			// 	throw new Error('No token found');
+			// }
+
 			return {
 				headers: {
 					Authorization: `Bearer ${token}`,
